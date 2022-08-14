@@ -1,13 +1,13 @@
-package pl.urbanik.service;
+package pl.urbanik.service.impl;
 
 import org.springframework.stereotype.Service;
-import pl.urbanik.interfaces.Calculators;
+import pl.urbanik.service.CalculatorService;
 import pl.urbanik.model.Calculator;
 
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class CalculatorsService implements Calculators {
+public class CalculatorsServiceImpl implements CalculatorService {
 
     @Override
     public List<String> lengthOfSlantingPipe(Calculator calculator) {

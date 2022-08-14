@@ -6,8 +6,4 @@ import pl.urbanik.model.Destination;
 
 @Repository
 public interface DestinationRepository extends JpaRepository<Destination, Long> {
-
-    default String greet() {
-        return "Hello, World";
-    }
 }

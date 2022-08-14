@@ -15,10 +15,5 @@ public class WeatherService {
 
     public Weather getWeather() {
         return weatherClient.getWeatherForCity("rzeszow");
-
     }
-
-
-
-
 }

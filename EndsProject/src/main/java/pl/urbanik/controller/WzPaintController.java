@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.urbanik.interfaces.GeneratePdfReport;
 import pl.urbanik.model.WzPaint;
-import pl.urbanik.repository.*;
+import pl.urbanik.service.WzPaintService;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
@@ -22,31 +22,31 @@ import java.util.List;
 @RequestMapping("/wzpaints")
 @RequiredArgsConstructor
 public class WzPaintController {
-    private final WzPaintsRepository wzPaintsRepository;
+    private final WzPaintService wzPaintService;
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
-        model.addAttribute("wzpaints", wzPaintsRepository.findAll());
+        model.addAttribute("wzpaints", wzPaintService.listAllWz());
         return "wzpaints/list";
     }
 
     @RequestMapping(value = "/del/{id}", method = RequestMethod.GET)
     public String delMsg(Model model, @PathVariable Long id) {
-        model.addAttribute("wzpaint", wzPaintsRepository.getOne(id));
+        model.addAttribute("wzpaint", wzPaintService.getWz(id));
         return "wzpaints/del";
     }
 
     @RequestMapping(value = "/del", method = RequestMethod.GET)
     public String delete(@RequestParam Long id) {
-        wzPaintsRepository.deleteById(id);
+        wzPaintService.deleteWz(id);
         return "redirect:/wzpaints/list";
     }
 
 
     @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
     public String show(Model model, @PathVariable Long id) {
-        model.addAttribute("wzpaint", wzPaintsRepository.getOne(id));
+        model.addAttribute("wzpaint", wzPaintService.getWz(id));
         return "wzpaints/show";
     }
 
@@ -54,7 +54,7 @@ public class WzPaintController {
             produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> wzReports() {
 
-        var wzPaints = (List<WzPaint>) wzPaintsRepository.findAll();
+        var wzPaints = (List<WzPaint>) wzPaintService.listAllWz();
 
         ByteArrayInputStream bis = GeneratePdfReport.wzReports(wzPaints);
 

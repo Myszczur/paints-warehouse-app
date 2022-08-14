@@ -1,10 +1,11 @@
-package pl.urbanik.interfaces;
+package pl.urbanik.service;
 
+import org.springframework.stereotype.Service;
 import pl.urbanik.model.Calculator;
 
 import java.util.List;
-
-public interface Calculators {
+@Service
+public interface CalculatorService {
 
     List<String> lengthOfSlantingPipe(Calculator calculator);
 }
